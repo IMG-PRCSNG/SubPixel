@@ -1,0 +1,18 @@
+input: "data"
+input_dim: 1
+input_dim: 18
+input_dim: 30
+input_dim: 30
+force_backward: true
+layer {
+  name: "pixshuf"
+  type: "Python"
+  bottom: "data"
+  top: "shuf"
+  
+  python_param {
+    module: "PyPixelShuffleLayer"
+    layer: "PyPixelShuffleLayer"
+    param_str: "'scale_factor': 3"
+  }
+}
