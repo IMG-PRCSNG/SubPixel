@@ -11,10 +11,9 @@ class PyPixelShuffleLayer(caffe.Layer):
         n, c, h, w = I.shape
         oc = c / r**2
 
-        I = I.reshape((n, oc, r**2, h, w)) # 1x2x4x540x960
-        I = I.transpose(0,1,3,4,2)
-        I = I.reshape((n, oc, h, w, r, r))  # 1x2x540x960x2x2
-        I = I.transpose(0,1,2,4,3,5)
+        # Based on pull request #3
+        I = I.reshape((n, oc, r, r, h, w))
+        I = I.transpose(0,1,4,2,5,3)
         I = I.reshape((n, oc, h*r, w*r))
         
         return I
